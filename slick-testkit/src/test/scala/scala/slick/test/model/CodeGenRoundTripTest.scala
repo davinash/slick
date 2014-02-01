@@ -20,7 +20,6 @@ class CodeGeneratorRoundTripTest(val tdb: JdbcTestDB) extends DBTest {
     } with Tables
     import Tables.profile.simple._
     import Tables._
-    val ddl = Posts.ddl ++ Categories.ddl ++ TypeTest.ddl ++ X.ddl
     //println(ddl.createStatements.mkString("\n"))
     try{
       ddl.create
@@ -46,7 +45,6 @@ class CodeGeneratorRoundTripTest(val tdb: JdbcTestDB) extends DBTest {
     import scala.slick.collection.heterogenous.syntax._
 
     val oData = 0L :: 11 :: 12 :: 13 :: 14 :: 15 :: 16 :: 21 :: 22 :: 23 :: 24 :: 25 :: 26 :: 31 :: 32 :: 33 :: 34 :: 35 :: 36 :: 41 :: 42 :: 43 :: 44 :: 45 :: 46 :: 51 :: 52 :: 53 :: 54 :: 55 :: 56 :: 61 :: 62 :: 63 :: 64 :: 65 :: 66 :: HNil
-    Large.ddl.create
     Large.insert(oData)
     assertEquals((oData,0), Large.map(r => (r,r.id)).first)
     assertEquals(oData, StaticQuery.queryNA[LargeRow]("select * from "+quoteIdentifier("LARGE")).first )
